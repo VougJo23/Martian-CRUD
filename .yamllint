@@ -1,0 +1,10 @@
+---
+extends: default
+
+rules:
+  # Disable rules that conflict with GitHub Actions syntax
+  truthy: disable          # Allows simple `branches: ["main"]` 
+  document-start: disable  # Optional: Allows omitting `---` 
+  line-length:             # Increase from default 80 chars
+    max: 120
+    allow-non-breakable-inline-mappings: true
