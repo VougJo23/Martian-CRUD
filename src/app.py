@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# use in-memory SQLite database 
+# use in-memory SQLite database
 # data is lost when app stops
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -35,7 +35,8 @@ def add_resource():
 @app.route('/resources', methods=['GET'])
 def get_resources():
     resources = Resource.query.all()
-    return jsonify([{"id": r.id, "name": r.name, "quantity": r.quantity} for r in resources])
+    return jsonify([{"id": r.id, "name": r.name, "quantity": r.quantity}
+                    for r in resources])
 
 
 #Read one resource (GET)
@@ -43,10 +44,10 @@ def get_resources():
 def get_resource(id):
     resource = Resource.query.get(id)  # Find resource by ID
     if resource:
-        return jsonify({"id": resource.id, "name": resource.name, "quantity": resource.quantity}), 200
-    else:
-        return jsonify({"message": "Resource not found"}), 404
-    
+        return jsonify({"id": resource.id, "name": resource.name,
+                        "quantity": resource.quantity}), 200
+    return jsonify({"message": "Resource not found"}), 404
+
 
 # Update a resource (PUT)
 @app.route('/resources/<int:id>', methods=['PUT'])
@@ -64,10 +65,10 @@ def update_resource(id):
 #Delete all resources (DELETE)
 @app.route('/resources', methods=['DELETE'])
 def delete_resources():
-    resources = Resource.query.get()
+    resources = Resource.query.all()
     for r in resources:
-        db.session.delete(resources)
-        db.session.commit()
+        db.session.delete(r)
+    db.session.commit()
     return jsonify({"message": "All resources deleted"})
 
 
@@ -86,9 +87,19 @@ def delete_resource(id):
 if __name__ == '__main__':
     app.run(debug=True)
 
-#test API: 
-#curl -X POST http://127.0.0.1:5000/resources -H "Content-Type: application/json" -d "{\"name\": \"Oxygen Tanks\", \"quantity\": 50}"
-#curl -X POST http://127.0.0.1:5000/resources -H "Content-Type: application/json" -d "{\"name\": \"CO2 Tanks\", \"quantity\": 10}"
+#test API:
+#curl -X POST http://127.0.0.1:5000/resources
+# -H "Content-Type: application/json"
+# -d "{\"name\": \"Oxygen Tanks\", \"quantity\": 50}"
+
+#curl -X POST http://127.0.0.1:5000/resources
+# -H "Content-Type: application/json"
+# -d "{\"name\": \"CO2 Tanks\", \"quantity\": 10}"
+
 #curl -X GET http://127.0.0.1:5000/resources
-#curl -X PUT http://127.0.0.1:5000/resources/2 -H "Content-Type: application/json" -d "{\"name\": \"CO2 Tanks\", \"quantity\": 30}"
+
+#curl -X PUT http://127.0.0.1:5000/resources/2
+# -H "Content-Type: application/json"
+# -d "{\"name\": \"CO2 Tanks\", \"quantity\": 30}"
+
 #curl -X DELETE http://127.0.0.1:5000/resources/1

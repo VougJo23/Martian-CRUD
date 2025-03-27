@@ -1,0 +1,30 @@
+[MASTER]
+disable=
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    W0511,  # fixme
+    R0903,  # too-few-public-methods (common in Flask models/views)
+    W0622,  # redefined-builtin (common with Flask request/response)
+    W0621,  # redefined-outer-name (pytest fixtures)
+    C0103,  # invalid-name (allows for Flask's lowercase route names)
+    
+load-plugins=pylint_flask
+
+[MESSAGES CONTROL]
+# Disable these checks specifically for Flask apps
+disable=
+    no-member,  # Disabled because SQLAlchemy models trigger this
+    invalid-name,
+    too-few-public-methods
+
+[FORMAT]
+max-line-length=120
+
+[BASIC]
+# Naming style
+variable-naming-style=snake_case
+const-naming-style=UPPER_CASE
+class-naming-style=PascalCase
+function-naming-style=snake_case
+method-naming-style=snake_case
