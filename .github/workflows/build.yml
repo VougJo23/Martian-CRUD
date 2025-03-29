@@ -40,16 +40,37 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest pylint
+          pip install --upgrade pip
+          pip install -r requirements.txt pytest pylint
 
       - name: Run pytest
         run: |
           pytest tests/ -v
-        # python -m
+
       - name: Run pylint
         run: |
           pylint src/martian_crud/ tests/ --exit-zero
+
+      - name: Check Docker setup
+        run: |
+          docker --version
+          docker buildx version
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/martian-crud:latest -f Dockerfile .
+
+      - name: Push Docker Image
+        if: github.ref == 'refs/heads/main' 
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/martian-crud:latest
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
 
   deploy:
     needs: build
