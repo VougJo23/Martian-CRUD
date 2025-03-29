@@ -1,5 +1,5 @@
 import pytest
-from src.app import app, db
+from src.martian_crud.app import app, db
 
 @pytest.fixture
 def client():

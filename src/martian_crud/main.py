@@ -6,4 +6,4 @@ def main():
 
 # Allows running with python -m martian_crud.main
 if __name__ == '__main__':
-    main()  
+    main()
