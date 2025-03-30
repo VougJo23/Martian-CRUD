@@ -24,12 +24,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    # runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: crud-app
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -54,12 +51,6 @@ jobs:
           docker --version
           docker buildx version
       
-      #get dockerfile from main 
-      - name: Fetch Dockerfile from main
-        run: |
-          git fetch origin main:main
-          cp main/Dockerfile 
-
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
