@@ -9,5 +9,4 @@ src/martian_crud.egg-info/dependency_links.txt
 src/martian_crud.egg-info/entry_points.txt
 src/martian_crud.egg-info/requires.txt
 src/martian_crud.egg-info/top_level.txt
-tests/test_api.py
 tests/test_app2.py

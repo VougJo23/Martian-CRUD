@@ -86,20 +86,3 @@ def delete_resource(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#test API:
-#curl -X POST http://127.0.0.1:5000/resources
-# -H "Content-Type: application/json"
-# -d "{\"name\": \"Oxygen Tanks\", \"quantity\": 50}"
-
-#curl -X POST http://127.0.0.1:5000/resources
-# -H "Content-Type: application/json"
-# -d "{\"name\": \"CO2 Tanks\", \"quantity\": 10}"
-
-#curl -X GET http://127.0.0.1:5000/resources
-
-#curl -X PUT http://127.0.0.1:5000/resources/2
-# -H "Content-Type: application/json"
-# -d "{\"name\": \"CO2 Tanks\", \"quantity\": 30}"
-
-#curl -X DELETE http://127.0.0.1:5000/resources/1

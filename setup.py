@@ -1,7 +1,4 @@
 from setuptools import setup, find_packages
-import locale
-
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 def read_requirements():
     with open('requirements.txt', 'r', encoding='utf-8') as f:
