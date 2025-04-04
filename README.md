@@ -18,19 +18,33 @@ Ensure you have **Python 3.10+** installed.
 
 ### **2️⃣ Clone the Repository**
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/VougJo23/Martian-CRUD.git
+cd Martian-CRUD
 ```
 
-### **3️⃣ Install Dependencies**
+### **3️⃣ Run the Application**
+
+▶️ Method 1: Running Locally (Python Environment)
+Install Dependencies
 ```bash
-pip install flask flask_sqlalchemy
+pip install -e .
+```
+Run the App
+```bash
+martian-compiler
+```
+or 
+```bash
+python -m martian_crud.main
 ```
 
-### **4️⃣ Run the Application**
+▶️ Method 2: Running with Docker
+Build Docker Image & Run the App
 ```bash
-python app.py
+docker build -t martian-crud .
+docker run -p 5000:5000 martian-crud
 ```
+
 You should see:
 ```
 * Running on http://127.0.0.1:5000/
